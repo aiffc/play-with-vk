@@ -1,0 +1,50 @@
+(in-package :ve.pipeline)
+
+(defun create-depth-stencil-stage (&key
+				     (depth-test-enable t)
+				     (depth-write-enable t)
+				     (depth-compare-op :less-or-equal)
+				     (depth-bounds-test-enable nil)
+				     (stencil-test-enable nil)
+				     (front-fail-op :keep)
+				     (front-pass-op :keep)
+				     (front-depth-fail-op :keep)
+				     (front-compare-op :always)
+				     (front-compare-mask 0)
+				     (front-write-mask 0)
+				     (front-reference 0)
+				     (back-fail-op :keep)
+				     (back-pass-op :keep)
+				     (back-depth-fail-op :keep)
+				     (back-compare-op :always)
+				     (back-compare-mask 0)
+				     (back-write-mask 0)
+				     (back-reference 0)
+				     (min-depth-bounds 0.0)
+				     (max-depth-bounds 0.0))
+  (let ((front (make-instance 'vk:stencil-op-state
+			      :fail-op front-fail-op
+			      :pass-op front-pass-op
+			      :depth-fail-op front-depth-fail-op
+			      :compare-op front-compare-op
+			      :compare-mask front-compare-mask
+			      :write-mask front-write-mask
+			      :reference front-reference))
+	(back (make-instance 'vk:stencil-op-state
+			      :fail-op back-fail-op
+			      :pass-op back-pass-op
+			      :depth-fail-op back-depth-fail-op
+			      :compare-op back-compare-op
+			      :compare-mask back-compare-mask
+			      :write-mask back-write-mask
+			      :reference back-reference)))
+    (make-instance 'vk:pipeline-depth-stencil-state-create-info
+		   :depth-test-enable depth-test-enable
+		   :depth-write-enable depth-write-enable
+		   :depth-compare-op depth-compare-op
+		   :depth-bounds-test-enable depth-bounds-test-enable
+		   :stencil-test-enable stencil-test-enable
+		   :front front
+		   :back back
+		   :min-depth-bounds min-depth-bounds
+		   :max-depth-bounds max-depth-bounds)))

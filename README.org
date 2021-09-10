@@ -1,0 +1,11 @@
+run the demo:
+
+git clone https://github.com/aiffc/sdl-vulkan.git
+git clone https://github.com/aiffc/play-with-vk.git
+
+(push #P"path-to-sdl-vulkan/sdl-vulkan" asdf:*central-registry*)
+(push #P"path-to-play-with-vk/play-with-vk" asdf:*central-registry*)
+
+(ql:quickload :ve/tests)
+
+(test.initapp::test)
